@@ -1,0 +1,13 @@
+flask-autenticacion/
+__pycache__/
+
+.env
+
+# con esto decimos elimina toda la carpeta con todo adentro
+# media/
+
+#elimina toda las subcarpetas de media mas no la carpeta media
+/media/*
+
+#excepto eliminaeste archivo dejalo alli adentro
+!media/not_found.jfif

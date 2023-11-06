@@ -1,0 +1,21 @@
+para acceder a postgres credenciales
+user = psql 
+password = root
+cmd=psql -u postgres 
+
+\l = lista de base de datos
+
+\c name_db= para concectarnos a la bd que deseamos
+
+\d =lista de tablas de la bd con su secuencia que serian como su llae primaria
+
+\q =para salir de session de postgres
+
+\dt = lista de tabas sin sequence
+
+\d name_tabla= es como hacer una descripcion de la tabla
+
+\dt name_esquema. = permitira ver las tablas que se encuentran en ese mismo esquema
+
+\x =para cambiar la posicion de mostrar los datos ya no en cuadrado si no por agrupacion mas comoda
+en postgres existe el esquema por defecto y lo bueno es que esto se maneja dentro de una misma base de datos podemos tener muchos esquemas el uso mas normal seria un esquema de produccion y un esquema de desarrollo cada uno tendran sus datos deferentes es una gran ventaja para poder testearlo (es un gran ventaja a diferencia de mysql)

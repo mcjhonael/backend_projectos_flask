@@ -1,0 +1,357 @@
+{
+	"info": {
+		"_postman_id": "fb194eb5-0a3d-49bd-a20e-55a843996712",
+		"name": "flask_reposteria",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "ingrediente",
+			"item": [
+				{
+					"name": "/ingredientes",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_local}}/ingredientes",
+							"host": [
+								"{{url_local}}"
+							],
+							"path": [
+								"ingredientes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/ingredientes",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\":\"sandia\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_local}}/ingredientes",
+							"host": [
+								"{{url_local}}"
+							],
+							"path": [
+								"ingredientes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/ingrediente/:id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\":\"camarones\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_local}}/ingrediente/1",
+							"host": [
+								"{{url_local}}"
+							],
+							"path": [
+								"ingrediente",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/ingrediente/:id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_local}}/ingrediente/1",
+							"host": [
+								"{{url_local}}"
+							],
+							"path": [
+								"ingrediente",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/ingrediente/:id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url_local}}/ingrediente/1",
+							"host": [
+								"{{url_local}}"
+							],
+							"path": [
+								"ingrediente",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/buscar_ingrediente",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_local}}/buscar_ingrediente?nombre=a",
+							"host": [
+								"{{url_local}}"
+							],
+							"path": [
+								"buscar_ingrediente"
+							],
+							"query": [
+								{
+									"key": "nombre",
+									"value": "a"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "receta",
+			"item": [
+				{
+					"name": "/recetas",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\":\"arroz con huevo\",\r\n    \"porcion\":\"MEDIANA\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_local}}/recetas",
+							"host": [
+								"{{url_local}}"
+							],
+							"path": [
+								"recetas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/recetas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_local}}/recetas?page=1&perPage=10",
+							"host": [
+								"{{url_local}}"
+							],
+							"path": [
+								"recetas"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "perPage",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/receta/:id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_local}}/receta/3",
+							"host": [
+								"{{url_local}}"
+							],
+							"path": [
+								"receta",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "preparacion",
+			"item": [
+				{
+					"name": "/preparacion",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"orden\":3,\r\n    \"descripcion\":\"Rikisisisismo\",\r\n    \"receta_id\":1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_local}}/preparacion",
+							"host": [
+								"{{url_local}}"
+							],
+							"path": [
+								"preparacion"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/preparacion/:id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url_local}}/preparacion/4",
+							"host": [
+								"{{url_local}}"
+							],
+							"path": [
+								"preparacion",
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "receta_ingrediente",
+			"item": [
+				{
+					"name": "/receta_ingrediente",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"receta_id\":1,\r\n    \"ingrediente_id\":[\r\n        1,\r\n        2,\r\n        3,\r\n        4,\r\n        5\r\n    ],\r\n    \"cantidad\":\"20ml\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_local}}/recetas_ingredientes",
+							"host": [
+								"{{url_local}}"
+							],
+							"path": [
+								"recetas_ingredientes"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url_local",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

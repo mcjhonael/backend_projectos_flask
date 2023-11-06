@@ -1,0 +1,5 @@
+# el / es para espeficicar ocultar carpetas
+__pycache__/
+orm-sqlalchemy/
+# sin / es para especificar ocultar archivos
+.env

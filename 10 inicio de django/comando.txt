@@ -1,0 +1,52 @@
+vamos a usar algo mejor que env que es virtualenv pero tenemos que instalarlo
+pip install virtualenv
+
+which --version == version de mi virtualenv
+
+which virtualenv == ubicacion en donde esta instalado mi libreria virtualenv
+
+virtualenv name_entorno == crea la carpeta del entorno virtual
+
+source django-backend/Scripts/activate == igual para entrar a nuestro virtual
+
+pip install django == 3.2.7 la version que necesitemos == instalar la libreria django va demorar un pokito xk tiene k instalar un CLI o interfaz de linea de comandos
+
+django-admin --version == version de django
+
+django-admin --help == lista de comandos
+
+py manage.py runserver == el archivo manager.py es el archivo principal y runserver para levantar nuestro servidor
+
+
+django-admin startproject libreria == 1ro se crea el proyecto despues la aplicacion
+
+hay que descargar la version standar es de la bd SQLite
+esta bd sqlite no necesita servidor xk es sumamente ligera
+https://sqlitebrowser.org/dl/
+
+
+cuando trabajamos con flask que pasaba que deseamos agregar una nueva columna teniamos que eliminar todo y volver a colocarlo todo hablamos en el aspecto del ORM 
+
+django provee de las migraciones que serian una lista de tareas pendientes pero para la base de datos nada mas
+
+py manage.py showmigrations == lista de applicaciones que viene pre instaladas en python x defecto (admin, auth, contenttypes, sessions)
+
+python manage.py migrate == valida todas las migraciones que no se han ejecutado en la BD y las ejecuta
+
+todo la subcarpeta que se creo que es libreria only es de configuracion para debemos crear una aplicacion
+py manage.py startapp gestion
+
+en el caso de flask usabamos el ORM sqlalchemy y x medio de ello podiamos crear las tablas
+pero en el caso de django el usar un orm por medio de las migraciones o sea que debemos usar
+este comando de migraciones poara crear las tablas
+
+----------------------------------------------------------------
+LO QUE AREMOS ES UNA APLICACION DE LIBRERIA ENTONCES VAMOS A EMPEZAR...
+
+
+1 creamos nuestro MER 
+
+2 mapear las tablas o creacion de los modelos
+    - el campo id se crear automaticamente en la tabla o tambien podemos crearla nosotros
+
+

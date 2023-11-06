@@ -1,0 +1,131 @@
+orm = es un conjunto de herramientas que sirve para simplificar el uso de las bd en nuestro backend
+
+beneficios?
+- mapear nuestras tablas a clases
+- no brinda un codigo mas limpio
+- cuando creamos un nuestro cliente no tenemos k ir a ver si esta el cliente en la bd 
+- joins son mucho mas facil de usar
+- add function son metodos  .count() .sum() avg()
+
+malo?
+- es que tenemos que mapear todas las tablas de la base de datos obligatorio
+
+flask_sqlalchemy = es una copia de la libreria SQLALchemy al momento de instalar tbm se instala la libreria SQLALCHEMY
+- donde te va salir esto cuando uses un hosting alli es donde hay que pagar x la base de datos es gratis y pagar x el hosting para poder subir mi bd a la nube
+
+para usar el orm SQLALCHEMY debemos instalar los drivers dependiendo del sistema de gestion de base de datos relacional RDBMS (mysql, postgres,oracle,etc)
+- debemos add la variable de configuracion
+
+EVITAR LOS ERRORES DE IMPORTACION CIRCULAR
+- error comun en la mayoria de lenguajes
+ejemplo:
+
+app.py                              pruebas.py
+from pruebas import x  <--------->  from app import y
+
+lo que vemos es que en app estamos importando de pruebas x
+y de pruebas estamos importando app y (como que app tiene pruebas y pruebas tiene app algo circulo) como decir quien es 1ro el huevo o la gallina
+- lo cual no podemos hacer esto xk para usar los modelos en los controladores debemos usarlo en un archivo aparte llamado conexion_db.py y aqui ya hacemos la importacion de flask_sqlalchemy e importamos
+
+- por defect todas las variables son exportables en python
+doc==
+Para el caso común de tener una aplicación Flask, todo lo que tiene que hacer es crear su aplicación Flask, cargar la configuración de su elección y luego crear el SQLAlchemyobjeto pasándole la aplicación.
+
+Una vez creado, ese objeto contiene todas las funciones y ayudantes de ambos sqlalchemyy sqlalchemy.orm. Además, proporciona una clase llamada Modelque es una base declarativa que se puede usar para declarar modelos:
+
+
+MUCHO OJO CON ESTO ASI FUNCIONA
+conexion_db.py -----> app.py(para inicializar la bd y crear las tablas)
+conexion_db.py -----> modelos(para crear los modelos)
+conexion_db.py ----->controllers(las consultas a la bd)
+
+si no creamos la base de datos en mysql entonces lanzar error al momento de hacer la conexion
+
+***************************************************************************************
+para poder hacer los modelos hacemos un MER para tener las cosas mas clara
+mysqlWorkbench > new_model > add diagram  == a modelos los diagramas
+
+relaciones debiles ------(punteagudas)
+relaciones fuertes ______(lineal)
+
+1 - m  osea == T1 de 1       hasta mT2 (osea la clave foranea de T1 se va a T2 asi se crea la relacion) le hago click a la tabla 
+
+- toda documentacion la aremos en nuestra misma API
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+models
+
+conexion_db.py -----> models (en los modelos importamos la instancia de SQLALCHEMY  xk es la que nos brinda la creacion de modelos)
+
+- todas las clases de los modelos son en singular ejm: RecetaModel
+- todos los nombres de la tablas deben ser en plural ejm: recetas
+
+-lo que hace el orm es cuando lo inicializamos es ir a la bd y preguntar hay estas columnas si ok -_- no entonces la creo
+- para poder ver si se creo la tabla en la bd tenemos que importar ese modelos en el archivo app.py
+
+
+------------------------------------------------------------------
+el metodo environ.get('data')//retorname el valor de data y si no hay ese atributo entonces retorna vacio pero no pares el programa encambio environ['data'] si no hay entonces lanza un error y se malogra todo 
+
+
+////////////////////////////////////////////////////////////////////////////
+
+modelos === usar flask_sqlalchemy
+controladores == flask_restful
+
+usaremos modelo - controlador para este proyecto xk las vistas se encargara react
+lo normal seria:
+modelo - vista - controlador
+modelo - vista - plantilla
+
+** todo controlador esta vinculado con un modelo xk en el controlador tenemos que llamar a la bd ya sea para mostrar, eliminar, seleccionar, actualizar, filtrar, etc
+
+
+aplicacion cliente servidor osea que el frontend pueda hacer peticiones al back y el back le tenga que mandar una respuesta eso es una api rest
+API REST = CLIENTE - SERVIDOR
+
+los nombres de las rutas de los controladores deben ser en plural cuando sea GET y POST
+
+la manera tradicional que conocemos para obtener los datos enviados x el body era el request.get_json()
+este clave del request captura todo los datos que estamos enviando desde el front lo que import y lo que no importa la manera tradicional seria que tendriamo que seleccionar que cosas vamos a necesitar y k cosas no 
+
+- para flask_rest nos brinda un metodo que sirve para validar los parametros que nos esta enviando el cliente a esto se le llama serializador = elemento que convierte los parametros que envia el front para tener un uso correcto en el backend
+
+- reqparse es un modulo que tiene una clase RequestParser que se usa para validar los argumentos enviado x el front
+serializador=reqparse.RequestParser() // nuestro serializador iniciado
+
+- ahora tenemos que definir los args que necesitamos para interactuar con nuestra clase
+- se encarga crear como debe ser enviado el argumento x el front
+- para cada argumento que enviaremos siempre debemos crear este pequenio esqueleto con las caracteristicas de como debemos enviar
+serializador.add_argument(
+    'nombre' // nombre del argumento esperado que se enviara
+    location='json' //indicara x donde se enviara el argumento
+    type=str // el tipo de dato que tiene que enviar el front
+    help='Falta el nombre' //esto funciona cuando el front no envia nada x el body
+)
+
+ojito:
+*args = almacena en tupla ()
+**kwargs = almacena en dict
+
+como funciona
+
+post(self)
+    // cuando entres al post lo 1ro que debemos hacer es validar que se cumpla los parametros enviados del front para eso usaremos ese method que es el validardor
+    - retornara un diccionario solamente del valor enviado nada mas o demas a la basura
+    data=serializador.parse_args()
+    - una vez obteniendo esa informacion ya debemos guardarlo en la bd para ello hacemos:
+    . para crearlo debemos crear un objeto xk cuando usamos el orm en la bd se guarda un registro como la instancia de la clase 
+    un objeto de la clase Ingrediente = a un registro en la bd x lo cual debemos crear una instancia de ese objeto inicializado con valores y asi se crear un nuevo registro
+    new_ingrediente=IngredienteModel(ingredienteNombre=data['nombre'])
+
+ojo no siempre el back gestiona la bd 
+- en sqlalchemy todo se manera por transacciones ojo
+
+diferencias entre datetime.utcnow y datetime.utcnow() es que el 1ro va llamar el nombre de la funcion y el 2do es la ejecucion de la funcion osea si usamos x defecto el 1ro cada vez k le ejecute guardara ese valor de cada momento pero el 2 se ejecutara y cuando ingresemos llamara el mismo valor que se ejecuto y asi ese valor se quedara de porvida asi con ese valor x lo cual mejor el 1usaremos para k se 
+1 es la llamada a la funcion  = cuando la llamo se ejecutara las mismas veces k la llame
+2 es la ejecucuon de  la funcion  = se ejecuta 1 vez y asi queda siempre
+
+
+si en una consulta no pongo .all() entonces retornara solamente la query osea el codigo de consulta pero si le agrego 
+.all() entonces si me retornara los elementos
