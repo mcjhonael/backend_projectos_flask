@@ -8,6 +8,9 @@
 
 # python3 -m venv name_virtual (usamos el -m para indicarle que usaremos un modulo)
 
+#para acceder a los entorno virtuales
+#source name_entorno/script/activate
+
 # para poder desactivar el entorno virtual usamos el comando DEACTIVATE
 from flask import Flask
 
@@ -28,5 +31,16 @@ def incio():
 
 
 #con este metodo ya podemos levantar nuestro servidor web siempre debe ir al final de todo el codigo si lo ponemos antes de algo no lo tomara en cuenta xk es el inicio de levantar el server
+
 #el modo de debug permite que cuando add o modifiquemos algo en nuestro codigo el servidor tenga k reiniciarse y levantarse de nuevo
 app.run(debug=True)
+
+# para poder sacar todas las librerias instaladas
+# pip freeze > requirements.txt
+
+
+# para instalar todas las librerias
+# pip install -r requirements.txt
+
+# para solucionar el programa de url_quote actualizo flask 
+# pip install --upgrade Flask
