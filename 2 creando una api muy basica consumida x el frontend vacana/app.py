@@ -20,7 +20,6 @@ from flask_cors import CORS
 
 #instanciar la clase Flask
 app=Flask(__name__)
-
 #al hacerlo de esta manera le estamos dando todos los permisos a las rutas y methodos de cualquier lugar
 #recuerda que toda clase siempre debe ser instanciada aqui no pasa eso xk le estamos dando todos los permisos a la app
 CORS(app)
@@ -45,6 +44,9 @@ productos=[
 #creamos nuestro 1er endpoint
 @app.route("/")
 def index():
+    # request es una instancia de la clase Request x lo tanto para convertir sus atributos en un diccionario usamos el metodo magico de python __dict__
+    # print(request.__dict__)
+
     #siempre que vamos a responder al cliente tiene que ser por el return
     return {
         "message": "Bienvenido API",
@@ -64,8 +66,14 @@ def gestion_productos():
     # HACEMOS UNA VALIDACION PARA VER COMO DEBE RESPONDER MI RUTA A DIFERENTES METHODS
     if request.method=="POST":
         producto=request.get_json()
-        productos.append(producto) 
-        
+       
+        print(request.get_json())
+        # como get_json() te manda datos necesarios y datos basura entonces podemos filtrarlo de esta manera para que solamente llegue informacion importante enviando un diccionario con los datos
+        productos.append({
+            "producto":producto['producto'],
+            "precio":producto["precio"],
+        } ) 
+        print(productos)
         return{
             "content":producto,
             "message":"Producto creado exitosamente"
@@ -84,7 +92,7 @@ def gestion_producto(id):
     total_productos=len(productos)
     
     if id<total_productos:
-        if request.method=="GET":
+        if request.methosd=="GET":
             return{
                 "content":productos[id],
                 "message":None
@@ -92,7 +100,11 @@ def gestion_producto(id):
 
         elif request.method=="PUT":
             data=request.get_json()
-            productos[id]=data
+            # para poder filtrar mejor la informacion
+            productos[id]={
+                "nombre":data["nombre"],
+                "precio":data["precio"],
+            }
             return{
                 "message":"Producto Actualizado",
                 "content":productos[id],
@@ -103,15 +115,15 @@ def gestion_producto(id):
             return{
                 "content":None,
                 "message":"Producto eliminado exitosamente"
-            },200
+            },204
     else:
         return{ 
-            "message":"Product no encontrado",
+            "message":"Producto no encontrado",
             "content":None
     },404
 
 if __name__ == "__main__":
-    app.run(debug=True,port=8000)
+    app.run(debug=True,port=5000)
 
     # cuando uso evento yo no puedo guardarlo en una variables para ello tendria k crear una function para poder reutilizar ese metodo y usarlo en cualquier parte
     
