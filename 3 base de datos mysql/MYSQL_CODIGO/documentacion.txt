@@ -1,0 +1,15 @@
+add, modify,delete una columna en la base de datos
+https://sqlearning.com/es/creacion-gestion-bases-datos/alter-table/
+
+tipo de datos mysql
+https://blog.hubspot.es/website/tipos-de-datos-mysql
+
+docs mysql
+https://dev.mysql.com/doc/refman/8.3/en/integer-types.html
+
+
+para manejar los constraint(restricciones)
+https://www.cablenaranja.com/como-crear-y-manejar-constraints-en-mysql/
+
+valores numero sin signo unsing(solo valores positivos)
+https://www.tutorialesprogramacionya.com/mysqlya/temarios/descripcion.php?inicio=0&cod=19&punto=15

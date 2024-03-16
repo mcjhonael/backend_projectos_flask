@@ -14,10 +14,11 @@
 -- ahora definiremos las columnas de la tabla personas
 -- las llaves primarias siempre deben ser unicas e irrepetibles
 -- name_col | type_data | [primary key | not null ]
--- unique = el valor no se puede repetir con otro
+-- unique = el valor no se puede repetir co otro
 -- ingresado anteriormente, mas no obliga al usuario a ingresarlo
 -- enum (valores que solamente va aceptar)
 -- https://dev.mysql.com/doc/refman/8.0/en/data-types.html
+
 CREATE TABLE personas(
 -- vamos a definir las columnas de la tabla personas
 	id int primary key not null auto_increment unique,
@@ -44,18 +45,19 @@ INSERT INTO personas (documento,tipo_document,nombre,apellido,correo,fecha_nacim
 VALUES('3434545','C.E.','mirko','garcia','mc.mirko.com','2345-01-3','FEMENIMO');
 
 -- para mostrar seleccionamos las o (a) columnas que deseamos ver o los campos  y de k tabla
--- el * para selecionar todo
+-- el * para selecionar todos los campos
 -- si quieres poner campos vacios debemos colocar en los campos null
 SELECT * 
 FROM personas;
 
--- para modificar una columna osea alterar la tabla y modificar la columna de lo que era antes
--- a lo que va ser ahora si antes no aceptaba varoles null con esto si acepta
--- recuerda que solo se puede modificar si no tiene valores si los tiene no se puede modificar
--- ALTER TABLE SIRVE PARA ADD, DELETE Y MODIFICAR UNA COLUMNA
-ALTER TABLE personas MODIFY documento varchar(20) unique;
-
+--^ PARA PODER ALTERAR UNA COLUMNA ESTOS COMANDOS
+-- para modificar una columna no debe tener valores
+-- ALTER TABLE SIRVE PARA ADD, DELETE Y MODIFICAR UNA COLUMNA solamente cambiamos el verbo 
+ALTER TABLE personas MODIFY COLUMN documento varchar(20) unique;
 --  ALTER TABLE personas MODIFY apellido varchar(23);
+
+
+
 
 -- FILTRACIONNES DE INFORMACION
 -- filtrar datos desde una tabla

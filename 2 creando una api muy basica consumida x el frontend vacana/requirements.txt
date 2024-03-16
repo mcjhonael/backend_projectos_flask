@@ -9,3 +9,4 @@ MarkupSafe==2.1.5
 py-mon==2.0.4
 watchdog==4.0.0
 Werkzeug==3.0.1
+

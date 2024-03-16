@@ -1,4 +1,4 @@
-BASE_URL="http://127.0.0.1:8000";
+BASE_URL="http://127.0.0.1:5000";
 
 let traerProductos=document.getElementById("traerProductos");
 
@@ -15,7 +15,6 @@ let inputPrecio=document.getElementById("inputPrecio");
 // fetch(BASE_URL+"/productos",{method:"GET"}).then(respuesta =>{
     //     console.log(respuesta.status);
     // })
-    
 crearElemento=(element)=>{
     return document.createElement(element);
 }
