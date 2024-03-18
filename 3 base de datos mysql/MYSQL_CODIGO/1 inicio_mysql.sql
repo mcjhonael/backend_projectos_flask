@@ -52,14 +52,19 @@ FROM personas;
 
 --^ PARA PODER ALTERAR UNA COLUMNA ESTOS COMANDOS
 -- para modificar una columna no debe tener valores
--- ALTER TABLE SIRVE PARA ADD, DELETE Y MODIFICAR UNA COLUMNA solamente cambiamos el verbo 
+-- ALTER TABLE SIRVE PARA ADD, DELETE, CHANGE Y MODIFICAR UNA COLUMNA solamente cambiamos el verbo 
+-- ADD = AGREGAR UNA COLUMNA
+-- DELETE = ELIMINAR UNA COLUMNA
+-- MODIFY = MODIFICAR TIPOS_DATOS UNA COLUMNA
+-- CHANGE = CAMBIA EL NOMBRE DE UNA COLUMNA
 ALTER TABLE personas MODIFY COLUMN documento varchar(20) unique;
+ALTER TABLE personas CHANGE COLUMN NAME_OLD  NAME_NEW TIPO_DATOS;
 --  ALTER TABLE personas MODIFY apellido varchar(23);
 
 
 
 
--- FILTRACIONNES DE INFORMACION
+--^ FILTRACIONNES DE INFORMACION
 -- filtrar datos desde una tabla
 -- seleccionare todos los campos o columnas de la tabla persona donde el nombre_campo
 -- sea igual a jhonatan 
@@ -76,13 +81,13 @@ DELETE FROM personas WHERE apellido = "garcia";
 -- drop table personas;
 
 -- ACTUALIZAR UNO O VARIOS REGISTROS
--- actualizar de la tabla persona el campo nombre con este valor cuando el id=1 si 
--- no le ponen el cuando 
--- fuimos.. a todos los nombre se le va poner esto valor de manera masica
+-- actualizar la tabla persona el campo nombre con este valor cuando el id=1 si no le ponen el where fuimos.. por que a todos los registros se le pondran en ese valor
 
-UPDATE PERSONAS SET apellido="Ramiro" where id=2;
+UPDATE PERSONAS 
+SET apellido="Ramiro" 
+where id=2;
 
-
+set SQL_SAFE_UPDATES=0;
 
 
 
@@ -102,7 +107,7 @@ INSERT INTO medicos(cmp,nombre,apellido) VALUES
 SELECT  * FROM medicos;
 
 
--- asi se crean las relaciones en una BD
+-- ^asi se crean las relaciones en una BD
 -- 1ro crea el campo de alli ese campo lo vas a referenciar sobre cual
 -- deseas unirlo tabla(campo)
 
@@ -111,7 +116,7 @@ id int primary key auto_increment not null,
 vacuna enum("PFIZER","SINOPHARM","ASTRAZENECA"),
 lote varchar(10),
 fecha date,
--- CREA LOS CAMPOS Y LUEGO UNELOS CON LAS REFERENCIAS SIEMPRE HACER ESAS COSAS
+-- CREA LOS CAMPOS Y LUEGO UNELOS REFERENCIANDO
 medico_id int,
 paciente_id int,
 foreign key(medico_id) references medicos(id),
@@ -120,12 +125,12 @@ foreign key(paciente_id) references personas(id)
 DROP TABLE historial_vacunaciones;
 select * from historial_vacunaciones;
 
-INSERT INTO historial_vacunaciones(vacuna,lote,medico_id,paciente_id,fecha) VALUES
-('PFIZER','678',1,1,'2020-02-01'),
-('PFIZER','185',1,2,'2020-03-20'),
-('SINOPHARM','158',2,3,'2020-04-05'),
-('SINOPHARM','995',2,4,now()),
-('ASTRAZENECA','853',2,4,now());
+INSERT INTO historial_vacunaciones(vacuna,lote,fecha,medico_id,paciente_id) VALUES
+('PFIZER','678','2020-02-01',1,1),
+('PFIZER','185','2020-03-20',1,2),
+('SINOPHARM','158','2020-04-05',2,3),
+('SINOPHARM','995',now(),2,4),
+('ASTRAZENECA','853',now(),2,4);
 
 -- es recomendable poner las foreign key al final por buenas practicas
 -- aveces hay problemas de autogenerado por lo cual queremos eliminar
@@ -133,15 +138,12 @@ INSERT INTO historial_vacunaciones(vacuna,lote,medico_id,paciente_id,fecha) VALU
 -- entonces tenemos que autogenerarlo desde cero
 
 -- sirve para quitar el modo seguro  a nuestra base de datos por defecto 
--- esta en 1 eso indicara que no podemos eliminar una tabla sin usar un where 
+-- esta en 1 eso indicara que no podemos eliminar una registro sin usar un where 
 -- al poner 0 le decimos que somos pro y podemos hacer lo que sea eliminar
---  esa tabla totalmente siempre con cuidado
+--  ese  registro totalmente siempre con cuidado
 -- DELETE FROM HISTORIAL_VACUNACIONES
 
 -- SET SQL_SAFE_UPDATES = 1 //1ro le pones 0 de alli lo cambias a 1 pero lo
-
---  ejecutar se pued decir que es forma de inicializar
-
 
 -- otro tema de los inner en otro video
 -- personas vacunas con la vacuna PFIZER o ASTRAZENECA
@@ -158,24 +160,27 @@ SELECT * FROM historial_vacunaciones where vacuna="PFIZER" OR vacuna="ASTRAZENEC
 
 -- nos traera 1 la tabla historial junto a la otra tabla medico
 -- ON historial_vacunaciones.medico_id =medicos.id; es super poderoso xk dice tiene que estar tanto medico_id como en el medico.id
--- en el caso no este o digamos un medico no tenga historial entonces no lo traera simple igual si un historial no tiene medico no lo trae
+-- en el caso no este o digamos un medico no tenga historial entonces no lo traera
 SELECT * 
 FROM historial_vacunaciones 
 INNER JOIN medicos
 ON historial_vacunaciones.medico_id =medicos.id;
 
 
--- se interpreta como historial con medico E historial con paciente
-SELECT * FROM historial_vacunaciones
-INNER JOIN medicos ON historial_vacunaciones.medico_id=medicos.id
-INNER JOIN personas ON historial_vacunaciones.paciente_id = personas.id;
- 
+-- se interpreta como historial -> medico E historial -> paciente
+SELECT * 
+FROM historial_vacunaciones
+INNER JOIN medicos 
+ON historial_vacunaciones.medico_id=medicos.id
+INNER JOIN personas 
+ON historial_vacunaciones.paciente_id = personas.id;
+
 
 -- nos muestra la descripcion de la tabla para saber que campos colocar
 -- las fechas es en string osea en 'fecha'
 DESC medicos;
 
--- todo tipo de docuemntos es siempre en caracteres
+--^ tipo de documentos es siempre en caracteres
 -- left join(todo lo que concierne en el lado izquierdo y adicionalmente
 -- si esta en el lado derecho)
 -- traeme todos los medicos cuando en la izquierda haya una inter con 
