@@ -69,10 +69,6 @@ DESC PERSONALES;
 -- hasta perderia informacion asi k mejor lo hacemos asi
 -- nunca es bueno duplicar la informacion en 2 tablas xk pesaba 10mb ahora pesa 20mb 
 
-
--- alter no sirve para actualizar datos si no  modficiar la configuracion de  
--- la tabla add colum delete colum
--- modificar tipo de datos
 -- 150 datos ingresados
 SELECT * FROM PERSONALES;
 INSERT INTO PERSONALES (IDENTIFICADOR,NOMBRE,APELLIDO,DEPARTAMENTO_ID,SUPERVISOR_ID) VALUES ('661ef3d3-47c1-4121-ba9b-0ea4f13bb358','Patrick','Cooper',1,null);
