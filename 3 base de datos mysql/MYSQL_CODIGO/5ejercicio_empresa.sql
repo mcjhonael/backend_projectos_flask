@@ -81,7 +81,7 @@ GROUP BY DEPARTAMENTO_ID;
 SELECT *
 FROM PERSONALES;
 
--- lista de bae de datos
+-- lista de base de datos
 show databases;
 
 -- indica la base de datos seleccionada
