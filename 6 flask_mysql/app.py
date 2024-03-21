@@ -31,7 +31,7 @@
 #500 Internal Server Error = El servidor ha encontrado una situación que no sabe como manejarla.
 
 
-#?flask-mysqldb= libreria que permite conectar desde python a mysql si o si para darle la configuracion osea es un conector 
+#^flask-mysqldb= libreria que permite conectar desde python a mysql si o si para darle la configuracion osea es un conector 
 
 # de la libreria flask importame la clase Flask ya que las clases son siempre en mayusculas
 from flask import Flask,request
