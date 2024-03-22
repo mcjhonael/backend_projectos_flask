@@ -35,7 +35,7 @@
 
 # de la libreria flask importame la clase Flask ya que las clases son siempre en mayusculas
 from flask import Flask,request
-from flask_mysqldb import MySQL
+from flask_mysql import MySQL
 from dotenv import load_dotenv
 from funciones import areaConfigDB
 
