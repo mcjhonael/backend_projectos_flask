@@ -1,7 +1,7 @@
 solucion a un problema
 https://stackoverflow.com/questions/17404316/the-following-untracked-working-tree-files-would-be-overwritten-by-merge-but-i?newreg=5999282657814b089363278ffeb5d121
 
-pip install Flask-MySQLdb
+pip install flask-mysqldb
 https://pypi.org/project/Flask-MySQLdb/
 
 pip install python-dotenv

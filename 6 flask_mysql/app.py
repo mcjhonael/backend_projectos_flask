@@ -35,7 +35,7 @@
 
 # de la libreria flask importame la clase Flask ya que las clases son siempre en mayusculas
 from flask import Flask,request
-from flask_mysql import MySQL
+from flask_mysqldb import MySQL
 from dotenv import load_dotenv
 from funciones import areaConfigDB
 
@@ -169,3 +169,4 @@ if __name__=='__main__':
 #cuando queramos instalarlo usaremos asi
 #instalame todos los requerimientos del archivo requirements.txt 
 #pip install -r requirements.txt
+# todo va cambiar si hacemos una transaccion todo se va seguir pero si cambia todo se borra pero con el commit se conserva los cambios y el rollback borra todo la transaction
