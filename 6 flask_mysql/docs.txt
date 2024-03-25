@@ -7,3 +7,5 @@ https://pypi.org/project/Flask-MySQLdb/
 pip install python-dotenv
 https://pypi.org/project/python-dotenv/
 
+formateo de string super bueno
+https://www.learnpython.org/es/String%20Formatting

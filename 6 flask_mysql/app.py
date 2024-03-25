@@ -54,6 +54,7 @@ app=Flask(__name__)
 #config de var de mysql para flask
 #crear las credenciales a nuestra aplicacion
 #area de configuracion en este metodo aparte tenemos la configuracion completa
+# print(areaConfigDB(app).__dict__)
 areaConfigDB(app)
 
 #instanciar la libreria MySQL pasandole la applicacion
@@ -120,45 +121,60 @@ def inicio():
 # https://peps.python.org/pep-0249/
 @app.route('/departamento/<int:id>',methods=['GET','DELETE','PUT'])
 def departamento(id):
-    if request.method=='GET':
+    try:
         cur=mysql.connection.cursor()
-        cur.execute(f'SELECT * FROM DEPARTAMENTOS WHERE id={id}')
-        # cur.execute("SELECT * FROM DEPARTAMENTOS WHERE ID=%d" % id)
-        respuesta=cur.fetchall()
-        departamento=[]
-        for depa in respuesta:
-            departamento.append(
-                {
-                    'id':depa[0],
-                    'nombre':depa[1]
+        cur.execute(F"SELECT * FROM DEPARTAMENTOS WHERE ID={id}")
+        resultado=cur.fetchall()
+        print(resultado)
+        if len(resultado) != 0:
+            if request.method=='GET':
+                cur=mysql.connection.cursor()
+                cur.execute(f'SELECT * FROM DEPARTAMENTOS WHERE id={id}')
+                # cur.execute("SELECT * FROM DEPARTAMENTOS WHERE ID=%d" % id)
+                respuesta=cur.fetchall()
+                departamento=[]
+                for depa in respuesta:
+                    departamento.append(
+                        {
+                            'id':depa[0],
+                            'nombre':depa[1]
+                        }
+                    )
+                return{
+                    'content':departamento,
+                    'message':None
+                },200
+            #no puedo hacer un delete xk tengo que colocar en base de datos esto
+            #para poder hacer la eliminacion si no no se podra hacerlo
+            #en mysql hay que especificar el tipo de eliminacion que deseamos hacer con las claves foraneas
+            #FOREIGN KEY (ciudad) REFERENCES clientes(ciudad) ON DELETE CASCADE
+            elif request.method=='DELETE':
+                cur=mysql.connection.cursor()
+                cur.execute(f"DELETE FROM PERSONALES WHERE ID={id}")
+                mysql.connection.commit()
+                return {
+                    'message':"exitosamente eliminado",
+                    "content":None
                 }
-            )
-        return{
-            'content':departamento,
-            'message':None
-        },200
-    #no puedo hacer un delete xk tengo que colocar en base de datos esto
-    #para poder hacer la eliminacion si no no se podra hacerlo
-    #en mysql hay que especificar el tipo de eliminacion que deseamos hacer con las claves foraneas
-    #FOREIGN KEY (ciudad) REFERENCES clientes(ciudad) ON DELETE CASCADE
-    elif request.method=='DELETE':
-        cur=mysql.connection.cursor()
-        cur.execute(f"DELETE FROM PERSONALES WHERE ID={id}")
-        mysql.connection.commit()
-        return {
-            'message':"exitosamente eliminado",
-            "content":None
-        }
-    elif request.method=="PUT":
-        data=request.get_json()
-        print(data)
-        cur=mysql.connection.cursor()
-        cur.execute(f"UPDATE PERSONALES SET NOMBRE='{data['nombre']}' WHERE ID={id}")
-        mysql.connection.commit()
-        return{
-            "content":data,
-            "message":"Persona actualiza exitosamente"
-        },201
+            elif request.method=="PUT":
+                data=request.get_json()
+                print(data)
+                cur=mysql.connection.cursor()
+                cur.execute(f"UPDATE PERSONALES SET NOMBRE='{data['nombre']}' WHERE ID={id}")
+                # cur.execute("UPDATE DEPARTAMENTOS SET NOMBRE='{}' WHERE ID={}".format(data.get('nombre'),id))
+
+                mysql.connection.commit()
+                return{
+                    "content":data,
+                    "message":"Persona actualiza exitosamente"
+                },201
+        else:
+            return {
+                "content":None,
+                "message":"Valor no se a econtrado"
+            },404
+    except:
+        print("Errores que faltan corregir")
 
 if __name__=='__main__':
     app.run(debug=True,port=5000)
